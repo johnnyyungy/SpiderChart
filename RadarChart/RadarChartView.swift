@@ -39,11 +39,24 @@ struct RadarGrid: Shape {
         let center = CGPoint(x: rect.midX, y: rect.midY)
         var path = Path()
         
-        // Draw the concentric circles
+        // Draw straight lines for levels
         for level in 1...levels {
             let levelRadius = radius * CGFloat(level) / CGFloat(levels)
-            path.move(to: CGPoint(x: center.x + levelRadius, y: center.y))
-            path.addArc(center: center, radius: levelRadius, startAngle: .zero, endAngle: .degrees(360), clockwise: true)
+            
+            for (index, _) in categories.enumerated() {
+                let angle = 2 * .pi * CGFloat(index) / CGFloat(categories.count) - .pi / 2
+                let x = center.x + levelRadius * cos(angle)
+                let y = center.y + levelRadius * sin(angle)
+                
+                if index == 0 {
+                    path.move(to: CGPoint(x: x, y: y))
+                } else {
+                    path.addLine(to: CGPoint(x: x, y: y))
+                }
+            }
+            
+            // Close the path to form a polygon
+            path.closeSubpath()
         }
         
         // Draw the category lines
