@@ -9,13 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        let data = RadarChartData(values: [4, 3, 5, 2, 4], categories: ["A", "B", "C", "D", "E"])
+        
+        RadarChartView(data: data, maxValue: 5)
+            .frame(width: 300, height: 300)
+            .padding()
     }
 }
 

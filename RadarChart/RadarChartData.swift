@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct RadarChartData {
+    var values: [Double]
+    var categories: [String]
+}
